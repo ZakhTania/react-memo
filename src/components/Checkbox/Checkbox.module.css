@@ -1,7 +1,7 @@
 .div {
     display: flex;
     gap: 12px;
-    margin-top: 20px;
+    margin: 20px auto;
     align-items: center;
 }
 

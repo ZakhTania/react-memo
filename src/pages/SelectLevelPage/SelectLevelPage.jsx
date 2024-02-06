@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import styles from "./SelectLevelPage.module.css";
 import { Checkbox } from "../../components/Checkbox/Checkbox";
+import { Button } from "../../components/Button/Button";
 
 export function SelectLevelPage() {
   return (
@@ -25,6 +26,7 @@ export function SelectLevelPage() {
           </li>
         </ul>
         <Checkbox>3 попытки</Checkbox>
+        <Button>Старт</Button>
       </div>
     </div>
   );

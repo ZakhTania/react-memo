@@ -3,8 +3,10 @@ import styles from "./SelectLevelPage.module.css";
 import { Checkbox } from "../../components/Checkbox/Checkbox";
 import { Button } from "../../components/Button/Button";
 import { useState } from "react";
+import { useMode } from "../../hooks/useMode";
 
 export function SelectLevelPage() {
+  const { toggleMode } = useMode();
   const levelList = [1, 2, 3];
   const [levelLink, setLevelLink] = useState("3");
   function handleChangeLevel(level) {
@@ -47,7 +49,7 @@ export function SelectLevelPage() {
             );
           })}
         </div>
-        <Checkbox>3 попытки</Checkbox>
+        <Checkbox onClick={toggleMode}>3 попытки</Checkbox>
         <Link to={`/game/${levelLink}`}>
           <Button>Старт</Button>
         </Link>

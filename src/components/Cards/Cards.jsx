@@ -5,6 +5,7 @@ import styles from "./Cards.module.css";
 import { EndGameModal } from "../../components/EndGameModal/EndGameModal";
 import { Button } from "../../components/Button/Button";
 import { Card } from "../../components/Card/Card";
+import { useMode } from "../../hooks/useMode";
 
 // Игра закончилась
 const STATUS_LOST = "STATUS_LOST";
@@ -41,6 +42,10 @@ function getTimerValue(startDate, endDate) {
  * previewSeconds - сколько секунд пользователь будет видеть все карты открытыми до начала игры
  */
 export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
+  // Режим, определяющий количество попыток. Mode - 'hard' или 'easy' в зависимости от чек-бокса на странице выбора уровня.
+  const { mode } = useMode();
+  // Количество оставшихся попыток
+  const [attempts, setAttempts] = useState(mode === "easy" ? 3 : 1);
   // В cards лежит игровое поле - массив карт и их состояние открыта\закрыта
   const [cards, setCards] = useState([]);
   // Текущий статус игры
@@ -69,6 +74,7 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
     setStatus(STATUS_IN_PROGRESS);
   }
   function resetGame() {
+    setAttempts(mode === "easy" ? 3 : 1);
     setGameStartDate(null);
     setGameEndDate(null);
     setTimer(getTimerValue(null, null));
@@ -123,7 +129,22 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
       return false;
     });
 
-    const playerLost = openCardsWithoutPair.length >= 2;
+    // const playerLost = openCardsWithoutPair.length >= 2;
+    if (openCardsWithoutPair.length >= 2) {
+      const closeCards = nextCards.map(card => {
+        if (card.id === openCardsWithoutPair[0].id || card.id === openCardsWithoutPair[1].id) {
+          return {
+            ...card,
+            open: false,
+          };
+        } else {
+          return card;
+        }
+      });
+      setCards(closeCards);
+      setAttempts(prev => --prev);
+    }
+    const playerLost = attempts === 0;
 
     // "Игрок проиграл", т.к на поле есть две открытые карты без пары
     if (playerLost) {
@@ -133,7 +154,6 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
 
     // ... игра продолжается
   };
-
   const isGameEnded = status === STATUS_LOST || status === STATUS_WON;
 
   // Игровой цикл
@@ -209,6 +229,14 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
           />
         ))}
       </div>
+
+      {mode === "easy" ? (
+        <div className={styles.mode}>
+          <div>Осталось попыток: {attempts}</div>
+        </div>
+      ) : (
+        <></>
+      )}
 
       {isGameEnded ? (
         <div className={styles.modalContainer}>

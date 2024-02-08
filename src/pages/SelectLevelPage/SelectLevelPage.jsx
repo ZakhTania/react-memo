@@ -49,7 +49,7 @@ export function SelectLevelPage() {
             );
           })}
         </div>
-        <Checkbox onClick={toggleMode}>3 попытки</Checkbox>
+        <Checkbox onClick={toggleMode}>Использовать 3 попытки</Checkbox>
         <Link to={`/game/${levelLink}`}>
           <Button>Старт</Button>
         </Link>

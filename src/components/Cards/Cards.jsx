@@ -125,12 +125,11 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
       if (sameCards.length < 2) {
         return true;
       }
-
       return false;
     });
 
-    // const playerLost = openCardsWithoutPair.length >= 2;
     if (openCardsWithoutPair.length >= 2) {
+      setAttempts(prev => --prev);
       const closeCards = nextCards.map(card => {
         if (card.id === openCardsWithoutPair[0].id || card.id === openCardsWithoutPair[1].id) {
           return {
@@ -142,10 +141,8 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
         }
       });
       setCards(closeCards);
-      setAttempts(prev => --prev);
     }
     const playerLost = attempts === 0;
-
     // "Игрок проиграл", т.к на поле есть две открытые карты без пары
     if (playerLost) {
       finishGame(STATUS_LOST);
@@ -230,12 +227,10 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
         ))}
       </div>
 
-      {mode === "easy" ? (
+      {status === STATUS_IN_PROGRESS && mode === "easy" && (
         <div className={styles.mode}>
           <div>Осталось попыток: {attempts}</div>
         </div>
-      ) : (
-        <></>
       )}
 
       {isGameEnded ? (

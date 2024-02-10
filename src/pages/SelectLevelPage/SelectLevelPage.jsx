@@ -42,9 +42,10 @@ export function SelectLevelPage() {
                   className={styles.level}
                   type="radio"
                   id={`level${level}`}
+                  defaultChecked={level * 3 === levelLink ? true : false}
                   onChange={() => handleChangeLevel(level)}
                 />
-                {level}
+                <p>{level}</p>
               </label>
             );
           })}

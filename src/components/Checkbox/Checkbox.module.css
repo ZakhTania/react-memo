@@ -1,0 +1,47 @@
+.div {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 28px;
+    align-items: center;
+}
+
+.input {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    border-radius: 100px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: #fff;
+}
+
+.input::before {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    transition: 0.5s;
+}
+
+.input:checked[type="checkbox"]::before {
+    background-color: #0080c1;
+}
+
+.label {
+    color: #0080c1;
+    /* color: #004980; */
+    text-align: center;
+    font-family: StratosSkyeng;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.label:hover, .input:hover {
+    cursor: pointer;
+    color: #004980;
+}

@@ -50,9 +50,12 @@ export function SelectLevelPage() {
             );
           })}
         </div>
-        <Checkbox onClick={toggleMode}>Использовать 3 попытки</Checkbox>
+        <Checkbox onClick={toggleMode}>Легкий режим (3 жизни)</Checkbox>
         <Link to={`/game/${levelLink}`}>
-          <Button>Старт</Button>
+          <Button>Играть</Button>
+        </Link>
+        <Link to={`/game/${levelLink}`} className={styles.leaderboardLink}>
+          Перейти к лидерборду
         </Link>
       </div>
     </div>

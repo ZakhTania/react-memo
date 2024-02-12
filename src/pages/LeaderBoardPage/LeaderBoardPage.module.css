@@ -23,7 +23,7 @@
     text-align: left;
 }
 
-.leaderListHeader {
+.leaderListHeader, .leaderList {
     display: flex;
     gap: 66px;
     border-radius: 12px;
@@ -31,9 +31,10 @@
     height: 64px;
     padding: 16px 20px;
     box-sizing: border-box;
+    margin-bottom: 15px;
 }
 
-.leaderListHeaderEl {
+.leaderListHeaderEl, .leaderListEl {
     color: rgb(153, 153, 153);
     font-family: StratosSkyeng;
     font-size: 24px;
@@ -43,11 +44,17 @@
 }
 
 
-.leaderListHeaderEl:first-child {
+.leaderListHeaderEl:first-child,
+.leaderListEl:first-child {
     width: 178px;
 }
 
-.leaderListHeaderEl:nth-child(2) {
-    justify-self: flex-end;
-    width: 324px;
+.leaderListHeaderEl:nth-child(2),
+.leaderListEl:nth-child(2) {
+    width: 492px;
+    min-width: 178px;
+}
+
+.leaderListEl {
+    color: #000;
 }

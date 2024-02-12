@@ -54,7 +54,7 @@ export function SelectLevelPage() {
         <Link to={`/game/${levelLink}`}>
           <Button>Играть</Button>
         </Link>
-        <Link to={`/game/${levelLink}`} className={styles.leaderboardLink}>
+        <Link to={`/leaderBoard`} className={styles.leaderboardLink}>
           Перейти к лидерборду
         </Link>
       </div>

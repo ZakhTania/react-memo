@@ -1,0 +1,53 @@
+.container {
+    max-width: 1024px;
+    min-width: 672px;
+    margin: 0 auto;
+    padding: 52px 40px 0;
+    box-sizing: border-box;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 40px;
+}
+
+.pageTitle {
+    color: #fff;
+    font-family: StratosSkyeng;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 32px;
+    letter-spacing: 0%;
+    text-align: left;
+}
+
+.leaderListHeader {
+    display: flex;
+    gap: 66px;
+    border-radius: 12px;
+    background: #fff;
+    height: 64px;
+    padding: 16px 20px;
+    box-sizing: border-box;
+}
+
+.leaderListHeaderEl {
+    color: rgb(153, 153, 153);
+    font-family: StratosSkyeng;
+    font-size: 24px;
+    font-weight: 400;
+    text-align: left;
+    width: 102px;
+}
+
+
+.leaderListHeaderEl:first-child {
+    width: 178px;
+}
+
+.leaderListHeaderEl:nth-child(2) {
+    justify-self: flex-end;
+    width: 324px;
+}

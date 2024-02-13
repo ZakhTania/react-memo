@@ -6,6 +6,7 @@ import { EndGameModal } from "../../components/EndGameModal/EndGameModal";
 import { Button } from "../../components/Button/Button";
 import { Card } from "../../components/Card/Card";
 import { useMode } from "../../hooks/useMode";
+import { useLeaders } from "../../hooks/useLeaders";
 
 // Игра закончилась
 const STATUS_LOST = "STATUS_LOST";
@@ -15,6 +16,7 @@ const STATUS_IN_PROGRESS = "STATUS_IN_PROGRESS";
 // Начало игры: игрок видит все карты в течении нескольких секунд
 const STATUS_PREVIEW = "STATUS_PREVIEW";
 
+let leadersTime;
 function getTimerValue(startDate, endDate) {
   if (!startDate && !endDate) {
     return {
@@ -28,6 +30,7 @@ function getTimerValue(startDate, endDate) {
   }
 
   const diffInSecconds = Math.floor((endDate.getTime() - startDate.getTime()) / 1000);
+  leadersTime = diffInSecconds;
   const minutes = Math.floor(diffInSecconds / 60);
   const seconds = diffInSecconds % 60;
   return {
@@ -42,6 +45,8 @@ function getTimerValue(startDate, endDate) {
  * previewSeconds - сколько секунд пользователь будет видеть все карты открытыми до начала игры
  */
 export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
+  // Список лидеров
+  const { leadersList } = useLeaders();
   // Режим, определяющий количество попыток. Mode - 'hard' или 'easy' в зависимости от чек-бокса на странице выбора уровня.
   const { mode } = useMode();
   // Количество оставшихся попыток
@@ -241,6 +246,11 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
         <div className={styles.modalContainer}>
           <EndGameModal
             isWon={status === STATUS_WON}
+            isLeader={
+              status === STATUS_WON &&
+              pairsCount === 9 &&
+              (leadersList.length < 10 || leadersList.filter(leader => leader.time > leadersTime))
+            }
             gameDurationSeconds={timer.seconds}
             gameDurationMinutes={timer.minutes}
             onClick={resetGame}

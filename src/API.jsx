@@ -11,11 +11,11 @@ export async function getLeadersList() {
   return data;
 }
 
-export async function addLeader({ name, time }) {
+export async function addLeader({ userName, time }) {
   const response = await fetch(LEADERS_URL, {
     method: "POST",
     body: JSON.stringify({
-      name: name,
+      name: userName || "Пользователь",
       time: time,
     }),
   });

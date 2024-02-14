@@ -52,14 +52,7 @@ export function EndGameModal({ isWon, isLeader, gameDurationSeconds, gameDuratio
           Играть снова
         </Button>
       ) : (
-        <Button
-          onClick={() => {
-            addUserToLeaders();
-            onClick();
-          }}
-        >
-          Начать сначала
-        </Button>
+        <Button onClick={onClick}>Начать сначала</Button>
       )}
       {isLeader && (
         <button

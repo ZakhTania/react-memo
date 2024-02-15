@@ -75,7 +75,7 @@
 .mode {
   display: flex;
   justify-content: center;
-  align-items:center;
+  align-items: center;
   width: 100%;
   color: #fff;
   font-family: StratosSkyeng;
@@ -83,4 +83,84 @@
   font-style: normal;
   font-weight: 400;
   margin-top: 24px;
+}
+
+.superPowerBox {
+  display: flex;
+  gap: 15px;
+}
+
+.superPower1 {
+  height: 68px;
+  width: 68px;
+  background-image: url(../../../public/assets/../superPower_1.svg);
+  border-radius: 100%;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.superPower2 {
+  height: 68px;
+  width: 68px;
+  background-image: url(../../../public/assets/../superPower_2.svg);
+  border-radius: 100%;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.superPower1:hover, .superPower2:hover {
+  opacity: 1;
+}
+
+[tooltip] {
+  position: relative;
+}
+
+[tooltip]::after {
+  opacity: 0;
+  content: attr(tooltip);
+  position: absolute;
+  width: 182px;
+  color: rgb(0, 73, 128);
+  font-family: Inter;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0%;
+  text-align: center;
+  z-index: 1;
+  top: 77px;
+  left: -70px;
+  border-radius: 12px;
+  background: rgb(194, 245, 255);
+  padding: 59px 20px 20px;
+}
+
+[tooltip]:hover::after {
+  opacity: 1;
+}
+
+[tooltipTitle]::before {
+  opacity: 0;
+  content: attr(tooltipTitle);
+  position: absolute;
+  color: rgb(0, 73, 128);
+  font-family: Inter;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: 0%;
+  text-align: center;
+  z-index: 2;
+  left: -6px;
+  top: 77px;
+  padding-top: 25px;
+}
+
+[tooltipTitle]:hover::before {
+  opacity: 1;
 }

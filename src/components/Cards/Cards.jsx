@@ -221,7 +221,23 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
             </>
           )}
         </div>
-        {status === STATUS_IN_PROGRESS ? <Button onClick={resetGame}>Начать заново</Button> : null}
+        {status === STATUS_IN_PROGRESS ? (
+          <>
+            <div className={styles.superPowerBox}>
+              <button
+                className={styles.superPower1}
+                tooltipTitle="Прозрение"
+                tooltip="На 5 секунд показываются все карты. Таймер длительности игры на это время останавливается."
+              />
+              <button
+                className={styles.superPower2}
+                tooltipTitle="Алохомора"
+                tooltip="Открывается случайная пара карт."
+              />
+            </div>
+            <Button onClick={resetGame}>Начать заново</Button>
+          </>
+        ) : null}
       </div>
 
       <div className={styles.cards}>

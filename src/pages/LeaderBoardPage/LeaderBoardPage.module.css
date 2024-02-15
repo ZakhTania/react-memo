@@ -40,21 +40,70 @@
     font-size: 24px;
     font-weight: 400;
     text-align: left;
-    width: 102px;
+    width: 92px;
+    min-width: 82px;
 }
 
 
 .leaderListHeaderEl:first-child,
 .leaderListEl:first-child {
     width: 178px;
+    min-width: 97px;
 }
 
 .leaderListHeaderEl:nth-child(2),
 .leaderListEl:nth-child(2) {
-    width: 492px;
-    min-width: 178px;
+    width: 227px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.leaderListHeaderEl:nth-child(3),
+.leaderListEl:nth-child(3) {
+    width: 194px;
 }
 
 .leaderListEl {
     color: #000;
+}
+
+.achievesBox {
+    display: flex;
+    gap: 14px;
+    fill: #E9ECED;
+    position: relative;
+}
+
+.withoutAchieve * {
+    fill: #E9ECED;
+}
+
+.achievBtn {
+    border: none;
+    background-color: transparent;
+    width: 26px;
+    height: 26px;
+}
+
+.hintAchiv {
+    display: none;
+    position: absolute;
+    top: -90px;
+    width: 134px;
+    height: 78px;
+    z-index: 1;
+    color: rgb(0, 73, 128);
+    font-family: Inter;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: center;
+    padding: 15px 20px;
+    background-image: url(./images/achievementHint.png);
+    background-size: 100% 85%;
+    background-repeat: no-repeat;
+}
+
+.achievBtn:hover .hintAchiv {
+    display:block;
 }

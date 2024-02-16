@@ -11,12 +11,13 @@ export async function getLeadersList() {
   return data;
 }
 
-export async function addLeader({ userName, time }) {
+export async function addLeader({ userName, time, achievements }) {
   const response = await fetch(LEADERS_URL, {
     method: "POST",
     body: JSON.stringify({
       name: userName || "Пользователь",
       time: time,
+      achievements: achievements,
     }),
   });
   if (response.status !== 201) {

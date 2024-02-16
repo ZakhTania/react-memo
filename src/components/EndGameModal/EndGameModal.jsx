@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useLeaders } from "../../hooks/useLeaders";
 
-export function EndGameModal({ isWon, isLeader, gameDurationSeconds, gameDurationMinutes, onClick }) {
+export function EndGameModal({ isWon, isLeader, gameDurationSeconds, gameDurationMinutes, onClick, achievements }) {
   const { updateLeadersList } = useLeaders();
   const navigate = useNavigate();
   const [userName, setUserName] = useState("");
@@ -21,7 +21,7 @@ export function EndGameModal({ isWon, isLeader, gameDurationSeconds, gameDuratio
   const time = gameDurationMinutes * 60 + gameDurationSeconds;
 
   function addUserToLeaders() {
-    addLeader({ userName, time });
+    addLeader({ userName, time, achievements });
     updateLeadersList();
   }
 

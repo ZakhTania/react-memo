@@ -51,11 +51,19 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
   const { mode } = useMode();
   // Количество оставшихся попыток
   const [attempts, setAttempts] = useState(mode === "easy" ? 3 : 1);
+  // Стейт для ачивок
+  const [achievements, setAchievements] = useState(mode === "easy" ? [1] : []);
   // В cards лежит игровое поле - массив карт и их состояние открыта\закрыта
   const [cards, setCards] = useState([]);
   // Текущий статус игры
   const [status, setStatus] = useState(STATUS_PREVIEW);
-
+  // Стейт для супер-сил
+  const [superPowers, setSuperPowers] = useState({
+    alahomora: true,
+    showing: true,
+  });
+  // Пауза для таймера
+  const [isPaused, setIsPaused] = useState(false);
   // Дата начала игры
   const [gameStartDate, setGameStartDate] = useState(null);
   // Дата конца игры
@@ -136,7 +144,7 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
     // Если на поле есть две открытые карты без пары, уменьшаем количество попыток и закрываем ошибочно открытые карты
     if (openCardsWithoutPair.length >= 2) {
       setAttempts(prev => --prev);
-      const closeCards = nextCards.map(card => {
+      const closeCards = cards.map(card => {
         if (card.id === openCardsWithoutPair[0].id || card.id === openCardsWithoutPair[1].id) {
           return {
             ...card,
@@ -151,7 +159,47 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
       }, 1000);
     }
   };
-
+  //"Алахомора" открывает пару карт 1 раз за игру
+  function alahomora() {
+    setSuperPowers({ ...superPowers, alahomora: false });
+    const closedCards = cards.filter(card => card.open === false);
+    const pairClosedCards = closedCards.filter(
+      card => card.suit === closedCards[0].suit && card.rank === closedCards[0].rank,
+    );
+    const openPairClosedCards = cards.map(card => {
+      if (card.id === pairClosedCards[0].id || card.id === pairClosedCards[1].id) {
+        return {
+          ...card,
+          open: true,
+        };
+      } else {
+        return card;
+      }
+    });
+    setCards(openPairClosedCards);
+    if (!achievements.includes(2)) {
+      setAchievements([...achievements, 2]);
+    }
+  }
+  // "Прозрение" на 5 сек показывает все карты
+  function showingCards() {
+    setIsPaused(true);
+    setSuperPowers({ ...superPowers, showing: false });
+    const currentCards = cards;
+    const showCards = cards.map(card => {
+      return { ...card, open: true };
+    });
+    setCards(showCards);
+    setTimeout(() => {
+      setCards(currentCards);
+      const currentStartGame = gameStartDate.getTime() + 5000;
+      setGameStartDate(new Date(currentStartGame));
+      setIsPaused(false);
+    }, previewSeconds * 1000);
+    if (!achievements.includes(2)) {
+      setAchievements([...achievements, 2]);
+    }
+  }
   // "Игрок проиграл", т.к. количество оставшихся попвток равно 0
   useEffect(() => {
     if (attempts === 0) {
@@ -191,12 +239,14 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
   // Обновляем значение таймера в интервале
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setTimer(getTimerValue(gameStartDate, gameEndDate));
+      if (!isPaused) {
+        setTimer(getTimerValue(gameStartDate, gameEndDate));
+      }
     }, 300);
     return () => {
       clearInterval(intervalId);
     };
-  }, [gameStartDate, gameEndDate]);
+  }, [gameStartDate, gameEndDate, isPaused]);
 
   return (
     <div className={styles.container}>
@@ -226,13 +276,17 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
             <div className={styles.superPowerBox}>
               <button
                 className={styles.superPower1}
-                tooltipTitle="Прозрение"
+                tooltiptitle="Прозрение"
                 tooltip="На 5 секунд показываются все карты. Таймер длительности игры на это время останавливается."
+                onClick={showingCards}
+                disabled={!superPowers.showing}
               />
               <button
                 className={styles.superPower2}
-                tooltipTitle="Алохомора"
+                tooltiptitle="Алохомора"
                 tooltip="Открывается случайная пара карт."
+                onClick={alahomora}
+                disabled={!superPowers.alahomora}
               />
             </div>
             <Button onClick={resetGame}>Начать заново</Button>
@@ -267,6 +321,7 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
               pairsCount === 9 &&
               (leadersList.length < 10 || leadersList.filter(leader => leader.time > leadersTime))
             }
+            achievements={achievements}
             gameDurationSeconds={timer.seconds}
             gameDurationMinutes={timer.minutes}
             onClick={resetGame}

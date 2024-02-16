@@ -144,7 +144,8 @@
   opacity: 1;
 }
 
-[tooltipTitle]::before {
+
+[tooltiptitle]::before {
   opacity: 0;
   content: attr(tooltipTitle);
   position: absolute;
@@ -161,6 +162,6 @@
   padding-top: 25px;
 }
 
-[tooltipTitle]:hover::before {
+[tooltiptitle]:hover::before {
   opacity: 1;
 }

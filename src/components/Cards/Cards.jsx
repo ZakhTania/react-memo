@@ -7,6 +7,7 @@ import { Button } from "../../components/Button/Button";
 import { Card } from "../../components/Card/Card";
 import { useMode } from "../../hooks/useMode";
 import { useLeaders } from "../../hooks/useLeaders";
+import Tooltip from "../Tooltip/Tooltip";
 
 // Игра закончилась
 const STATUS_LOST = "STATUS_LOST";
@@ -273,21 +274,18 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
         </div>
         {status === STATUS_IN_PROGRESS ? (
           <>
-            <div className={styles.superPowerBox}>
-              <button
-                className={styles.superPower1}
-                tooltiptitle="Прозрение"
-                tooltip="На 5 секунд показываются все карты. Таймер длительности игры на это время останавливается."
-                onClick={showingCards}
-                disabled={!superPowers.showing}
-              />
-              <button
-                className={styles.superPower2}
-                tooltiptitle="Алохомора"
-                tooltip="Открывается случайная пара карт."
-                onClick={alahomora}
-                disabled={!superPowers.alahomora}
-              />
+            <div className={styles.superPowersWrap}>
+              <div className={styles.superPowerBox}>
+                <button className={styles.superPower1} onClick={showingCards} disabled={!superPowers.showing} />
+                <Tooltip
+                  title={"Прозрение"}
+                  text={"На 5 секунд показываются все карты. Таймер длительности игры на это время останавливается."}
+                />
+              </div>
+              <div className={styles.superPowerBox}>
+                <button className={styles.superPower2} onClick={alahomora} disabled={!superPowers.alahomora} />
+                <Tooltip title={"Алохомора"} text={"Открывается случайная пара карт."} />
+              </div>
             </div>
             <Button onClick={resetGame}>Начать заново</Button>
           </>

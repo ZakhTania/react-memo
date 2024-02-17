@@ -33,19 +33,23 @@ export function LeaderBoard() {
               <div className={styles.leaderListEl}>
                 <div className={styles.achievesBox}>
                   <button className={styles.achievBtn}>
-                    <p className={styles.hintAchiv}>Игра пройдена в сложном режиме</p>
                     {leader.achievements.includes(1) ? (
                       <ModeAchievement className={styles.withoutAchieve} />
                     ) : (
-                      <ModeAchievement />
+                      <>
+                        <p className={styles.hintAchiv}>Игра пройдена в сложном режиме</p>
+                        <ModeAchievement />
+                      </>
                     )}
                   </button>
                   <button className={styles.achievBtn}>
-                    <p className={styles.hintAchiv}>Игра пройдена без супер-сил</p>
                     {leader.achievements.includes(2) ? (
                       <SuperPowerAchievement className={styles.withoutAchieve} />
                     ) : (
-                      <SuperPowerAchievement />
+                      <>
+                        <p className={styles.hintAchiv}>Игра пройдена без супер-сил</p>
+                        <SuperPowerAchievement />
+                      </>
                     )}
                   </button>
                 </div>

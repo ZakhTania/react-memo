@@ -1,0 +1,25 @@
+.container {
+    display: none;
+    position: absolute;
+    border-radius: 12px;
+    color: #004980;
+    font-family: Inter;
+    font-size: 18px;
+    line-height: 24px;
+    text-align: center;
+    background: rgb(194, 245, 255);
+    padding: 25px 20px 20px;
+    z-index: 1;
+    top: 83px;
+    left: -77px;
+}
+
+.title {
+    font-weight: 700;
+    padding-bottom: 10px;
+}
+
+.text {
+    width: 182px;
+    font-weight: 400;
+}

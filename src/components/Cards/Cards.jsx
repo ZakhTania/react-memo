@@ -277,14 +277,16 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
             <div className={styles.superPowersWrap}>
               <div className={styles.superPowerBox}>
                 <button className={styles.superPower1} onClick={showingCards} disabled={!superPowers.showing} />
-                <Tooltip
-                  title={"Прозрение"}
-                  text={"На 5 секунд показываются все карты. Таймер длительности игры на это время останавливается."}
-                />
+                {superPowers.showing && (
+                  <Tooltip
+                    title={"Прозрение"}
+                    text={"На 5 секунд показываются все карты. Таймер длительности игры на это время останавливается."}
+                  />
+                )}
               </div>
               <div className={styles.superPowerBox}>
                 <button className={styles.superPower2} onClick={alahomora} disabled={!superPowers.alahomora} />
-                <Tooltip title={"Алохомора"} text={"Открывается случайная пара карт."} />
+                {superPowers.alahomora && <Tooltip title={"Алохомора"} text={"Открывается случайная пара карт."} />}
               </div>
             </div>
             <Button onClick={resetGame}>Начать заново</Button>

@@ -89,12 +89,15 @@
   display: flex;
   gap: 15px;
 }
+
 .superPowerBox {
   position: relative;
 }
-.superPowerBox:hover *{
-display: block;
+
+.superPowerBox:hover * {
+  display: block;
 }
+
 .superPower1,
 .superPower2 {
   height: 68px;
@@ -105,6 +108,7 @@ display: block;
   cursor: pointer;
   opacity: 0.6;
 }
+
 .superPower1 {
   background-image: url(../../../public/superPower_1.svg);
 }
@@ -116,3 +120,9 @@ display: block;
 .superPower1:hover, .superPower2:hover {
   opacity: 1;
 }
+
+button:disabled,
+button:disabled:hover {
+  opacity: 0;
+}
+

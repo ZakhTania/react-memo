@@ -21,8 +21,13 @@ export function EndGameModal({ isWon, isLeader, gameDurationSeconds, gameDuratio
   const time = gameDurationMinutes * 60 + gameDurationSeconds;
 
   function addUserToLeaders() {
-    addLeader({ userName, time, achievements });
-    updateLeadersList();
+    addLeader({ userName, time, achievements })
+      .then(() => {
+        updateLeadersList();
+      })
+      .catch(error => {
+        console.warn(error.message);
+      });
   }
 
   return (
